@@ -1,0 +1,125 @@
+import java.util.Random;
+
+public class Clue {	
+	static int matriz[][] = {{1,2,3,4,5,6,7},
+							{1,2,3,4,5,6,7,8},
+							{1,2,3,4,5,6},
+							{1,2,3,4,5,6},
+							{1,2,3,4,5,6,7,8,9},
+							{0}};
+	static String Sospechosos[] = {"El/la mejor amigo(a)","El/la novio(a)","El/la vecino(a)","El mensajero","El extraño","El/la hermanastro(a)","El/la colega de trabajo"};
+	static String Armas[] = {"Pistola","Cuchillo","Machete","Pala","Bate","Botella","Tubo","Cuerda"};
+	static String Motivos[] = {"Venganza","Celos","Dinero","Accidente","Drogas","Robo"};
+	static String ParteCuerpo[] = {"Cabeza","Pecho","Abdomen","Espalda","Piernas","Brazos"};
+	static String Lugares[] = {"Sala","Comedor","Baño","Terraza","Cuarto","Garage","Patio","Balcon","Cocina"};
+	static int asesino[] = {0,0,0,0,0};
+	static int restriccion[][][];
+	public static void Seleccionar(int matriz[][]){	
+		Random rand = new Random();
+		for (int i = 0; i < 5;i++) {
+			int limite = matriz[i].length;
+			int seleccionado = rand.nextInt(limite);
+			asesino[i] = matriz[i][seleccionado];
+		}
+	}
+	public static void Restricciones(int parejas) {
+		Random rand = new Random();
+		int newpareja[][][] = new int[parejas][2][2]; 
+		for (int i = 0; i < parejas;i++) {
+			int seccion1 = rand.nextInt(5);
+			int seccion2 = rand.nextInt(5);
+			newpareja[i][0][0] = seccion1;
+			newpareja[i][1][0] = seccion2;
+			newpareja[i][0][1] = matriz[seccion1][rand.nextInt(matriz[seccion1].length)];
+			newpareja[i][1][1] = matriz[seccion2][rand.nextInt(matriz[seccion2].length)];
+		}
+		restriccion = newpareja;
+	}
+	public static boolean isSafe(int clasificacion,int select,int sol[]) {
+		if (matriz[clasificacion][select] == -1)
+			return false;
+		return true;
+	}
+	public static boolean SuggestSol() {
+		int Sol[] = {0,0,0,0,0,0};
+		if (SuggestUtil(0,Sol) == false) {
+			System.out.print("No existe solucion");
+			return false;
+		}
+		printSolucion(Sol);
+		return true;
+	}
+	private static void printSolucion(int[] sol) {
+		System.out.println("Solucion");
+		System.out.println(Sospechosos[sol[0]-1]);
+		System.out.println(Armas[sol[1]-1]);
+		System.out.println(Motivos[sol[2]-1]);
+		System.out.println(ParteCuerpo[sol[3]-1]);
+		System.out.println(Lugares[sol[4]-1]);
+	}
+	private static void Eliminar() {
+		Random rand = new Random();
+		int seccion = rand.nextInt(5);
+		int carta = rand.nextInt(matriz[seccion].length);
+		if (matriz[seccion][carta] != -1) {
+			if(matriz[seccion][carta] != asesino[seccion]) {
+				System.out.print("Eliminado: ");
+				System.out.print(seccion);
+				System.out.print("-");
+				System.out.println(carta);
+				matriz[seccion][carta] = -1;
+			}
+		}
+	}
+	private static boolean SuggestUtil(int i,int sol[]) {
+		if (i > 5) {
+			Eliminar();
+			System.out.println("Sugerencia");
+			System.out.println(Sospechosos[sol[0]-1]);
+			System.out.println(Armas[sol[1]-1]);
+			System.out.println(Motivos[sol[2]-1]);
+			System.out.println(ParteCuerpo[sol[3]-1]);
+			System.out.println(Lugares[sol[4]-1]);
+			return true;
+		}
+		for (int j = 0; j < matriz[i].length;j++) {
+			if (isSafe(i,j,sol)) {
+				sol[i] = matriz[i][j];
+				if ()
+				if (SuggestUtil(i+1,sol)) {
+					if (Verificar(sol))
+						return true;
+					return false;
+				}
+				sol[i] = 0;
+			}
+		}
+		return false;
+	}
+	private static boolean Verificar(int sol[]) {
+		if (sol.length < 5)
+			return false;
+		for(int i = 0; i < 5;i++) {
+			if(sol[i] != asesino[i]){
+				return false;
+			}
+		}
+		return true;
+	}
+	public static void main(String args[]){
+		Seleccionar(matriz);
+		Restricciones(4);
+		SuggestSol();
+		
+		/*for(int i = 0; i < 4;i++) {
+			System.out.printf("Pareja ");
+			System.out.println(i+1);
+			System.out.print(restriccion[i][0][0]);
+			System.out.println(restriccion[i][0][1]);
+			System.out.print(restriccion[i][1][0]);
+			System.out.println(restriccion[i][1][1]);
+	}*/
+		
+		
+	}
+}
