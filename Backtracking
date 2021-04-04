@@ -85,13 +85,23 @@ public class Clue {
 		for (int j = 0; j < matriz[i].length;j++) {
 			if (isSafe(i,j,sol)) {
 				sol[i] = matriz[i][j];
-				if ()
+				if (VerResticcion(sol)) {
+					return false;
+				}
 				if (SuggestUtil(i+1,sol)) {
 					if (Verificar(sol))
 						return true;
 					return false;
 				}
 				sol[i] = 0;
+			}
+		}
+		return false;
+	}
+	private static boolean VerResticcion(int[] sol) {
+		for (int i = 0; i < restriccion.length;i++) {
+			if (sol[restriccion[i][0][0]] == restriccion[i][0][1] && sol[restriccion[i][1][0]] == restriccion[i][1][1]) {
+				return true;
 			}
 		}
 		return false;
@@ -110,16 +120,6 @@ public class Clue {
 		Seleccionar(matriz);
 		Restricciones(4);
 		SuggestSol();
-		
-		/*for(int i = 0; i < 4;i++) {
-			System.out.printf("Pareja ");
-			System.out.println(i+1);
-			System.out.print(restriccion[i][0][0]);
-			System.out.println(restriccion[i][0][1]);
-			System.out.print(restriccion[i][1][0]);
-			System.out.println(restriccion[i][1][1]);
-	}*/
-		
 		
 	}
 }
