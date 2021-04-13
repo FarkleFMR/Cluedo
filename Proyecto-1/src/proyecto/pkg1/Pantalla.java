@@ -38,7 +38,7 @@ public class Pantalla extends javax.swing.JFrame {
     public void Empezar() throws InterruptedException{
         // Función que empieza el algoritmo de Fuerza Bruta
         int[][] Matriz = {{1,2,3,4,5,6,7},{1,2,3,4,5,6,7,8},{1,2,3,4,5,6},{1,2,3,4,5,6},{1,2,3,4,5,6,7,8,9}};
-        int[] Secuencia = {Random(6),Random(8),Random(6),Random(6),Random(9)};   
+        int[] Secuencia = {Random(7),Random(8),Random(6),Random(6),Random(9)};   
         
         long startTime = System.nanoTime();
         ArrayList<Integer>[] resultado =AuxFuerzaBrutaSug2(Matriz,Secuencia); 
