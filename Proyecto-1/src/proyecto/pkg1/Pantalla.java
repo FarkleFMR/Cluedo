@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package proyecto.pkg1;
 
 import java.awt.event.ActionEvent;
@@ -14,10 +10,7 @@ import java.util.Random;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Leonardo
- */
+
 public class Pantalla extends javax.swing.JFrame {
     
     static int matriz[][] = {{1,2,3,4,5,6,7},//Matriz de cartas
@@ -43,11 +36,9 @@ public class Pantalla extends javax.swing.JFrame {
     }
     
     public void Empezar() throws InterruptedException{
-
+        // Función que empieza el algoritmo de Fuerza Bruta
         int[][] Matriz = {{1,2,3,4,5,6,7},{1,2,3,4,5,6,7,8},{1,2,3,4,5,6},{1,2,3,4,5,6},{1,2,3,4,5,6,7,8,9}};
-        //int[] Secuencia = {Random(6),Random(8),Random(6),Random(6),Random(9)};   
-        //int[] Secuencia = {1,1,1,1,1};
-        int[] Secuencia = {7,8,6,6,9};  
+        int[] Secuencia = {Random(6),Random(8),Random(6),Random(6),Random(9)};   
         
         long startTime = System.nanoTime();
         ArrayList<Integer>[] resultado =AuxFuerzaBrutaSug2(Matriz,Secuencia); 
@@ -55,14 +46,6 @@ public class Pantalla extends javax.swing.JFrame {
         long tiempo = (endTime-startTime);
         
         resultado =AuxFuerzaBrutaSug(Matriz,Secuencia);
-        /*
-        // lo ponemos en un arreglo todo bonito y ordenado bien
-        int i=0;
-        int[] salida = new int[5];
-        while(i!=5){
-            salida[4-i]=resultado[0].get(i);
-            i++;
-        }*/
         
         // comprobamos que este todo bien
         
@@ -77,10 +60,11 @@ public class Pantalla extends javax.swing.JFrame {
             
     } 
     public int Random(int num1){
+        // Funció que devuelve números randoms desde 1 a num1
         return (int)Math.floor(Math.random()*(num1-1+1)+1);
     }
     public void Nombres(){
-            
+            // Función que coloca los nombres de los botones
             sos1.setText("Mejor amigo/a");
             sos2.setText("Novio/a");
             sos3.setText("Vecino/a");
@@ -124,7 +108,9 @@ public class Pantalla extends javax.swing.JFrame {
             
     }
     public void ColorBot(int aux, int aux2,int color, long tiempo) throws InterruptedException{
-
+        // Función encargada de cambiar el color de los botones    
+        // Variables: aux(la columna de la matriz), aux2(es la fila de la columna), color(es el número de color que le pondremos al boton)
+        // tiempo (es la cantidad de tiempo que tardara en cambiarse el color del boton)
         Timer timer2 = new Timer(((((int)tiempo/10)*100)), (ActionEvent arg0) -> { 
         Timer timer = new Timer((1000), (ActionEvent arg1) -> {            
         int red = 0;
@@ -288,6 +274,7 @@ public class Pantalla extends javax.swing.JFrame {
     }
     
     public void TodoCel() throws InterruptedException{
+        // Función que pone todos los botones en celeste
         int fila = 0;
         int columna = 0;
         
@@ -304,13 +291,18 @@ public class Pantalla extends javax.swing.JFrame {
     // Fuerza Bruta con Interfaz
     
     public ArrayList<Integer>[] AuxFuerzaBrutaSug(int[][] Matriz,int[] Secuencia) throws InterruptedException{
+        // Matriz(matriz donde se encuentran nuestra secuencia de enteros), Secuencia(la secuencia correcta de enteros)
         ArrayList<Integer> auxiliar = new ArrayList<Integer>();
         int[][] aux = {{-3,-3,-3,-3,-3,-3,-3},{-3,-3,-3,-3,-3,-3,-3,-3},{-3,-3,-3,-3,-3,-3},{-3,-3,-3,-3,-3,-3},{-3,-3,-3,-3,-3,-3,-3,-3,-3}};
+        // aux lo seteamos para despues usarlo para eliminar cartas
         long tiempo = 10;
         tiempoBack = 0;
         return fuerzaBrutaSug(Matriz,Secuencia,(Matriz.length-1),aux,0,tiempo,auxiliar);
     }   
     public boolean AuxFuerzaBrutaSug2(ArrayList<Integer> resultado,int[] Secuencia,long tiempo,int[][] Matriz) throws InterruptedException{       
+        // resultado ( Arraylist donde guardaremos la secuencia encontrada en la matriz)
+        // Matriz(matriz donde se encuentran nuestra secuencia de enteros), Secuencia(la secuencia correcta de enteros)
+        // tiempo (el tiempo que transcurre entre cada animación de los botones)
         int i = Secuencia.length-1;        
         boolean salida = true;
         while(i != -1){          
@@ -350,7 +342,10 @@ public class Pantalla extends javax.swing.JFrame {
         return salida;
     }   
     public ArrayList<Integer>[] fuerzaBrutaSug(int[][] Matriz,int[] Secuencia, int aux,int[][] aux2,int aux3,long tiempo,ArrayList<Integer>...resultado) throws InterruptedException{        
-        // aux es el tamaño de nuestra matriz,aux2 es el tamaño de su ultima fila,aux 3 tamaño de secuencia
+        // aux es el tamaño de nuestra matriz,aux2 es la matriz donde borraremos las cartas,aux3 tamaño de secuencia
+        // resultado ( Arraylist donde guardaremos la secuencia encontrada de la matriz)
+        // Matriz(matriz donde se encuentran nuestra secuencia de enteros), Secuencia(la secuencia correcta de enteros)
+        // tiempo (el tiempo que transcurre entre cada animación de los botones)
         if(Matriz.length-1 == aux){
             int aux4 = aux;
             while (aux4 != -1){
@@ -505,14 +500,20 @@ public class Pantalla extends javax.swing.JFrame {
     // Fuerza Bruta sin Interfaz
     
     public ArrayList<Integer>[] AuxFuerzaBrutaSug2(int[][] Matriz,int[] Secuencia) throws InterruptedException{
+        // Matriz(matriz donde se encuentran nuestra secuencia de enteros), Secuencia(la secuencia correcta de enteros)
+        // Esta función se encarga de crear variables que nos ayudaran para encontrar la secuencia dentro de la matriz
         ArrayList<Integer> auxiliar = new ArrayList<Integer>();
         int[][] aux = {{-3,-3,-3,-3,-3,-3,-3},{-3,-3,-3,-3,-3,-3,-3,-3},{-3,-3,-3,-3,-3,-3},{-3,-3,-3,-3,-3,-3},{-3,-3,-3,-3,-3,-3,-3,-3,-3}};
         return fuerzaBrutaSug2(Matriz,Secuencia,(Matriz.length-1),aux,0,auxiliar);
     }   
-    public boolean AuxFuerzaBrutaSug22(ArrayList<Integer> resultado,int[] Secuencia,int[][] Matriz) throws InterruptedException{       
+    public boolean AuxFuerzaBrutaSug22(ArrayList<Integer> resultado,int[] Secuencia,int[][] Matriz) throws InterruptedException{  
+        // resultado ( Arraylist donde guardaremos la secuencia encontrada de la matriz)
+        // Matriz(matriz donde se encuentran nuestra secuencia de enteros), Secuencia(la secuencia correcta de enteros)
+        // Esta función se encarga de fijarse si resultado es igual a la Secuencia si es igual devuelve true, si no false.
         int largoSec = Secuencia.length-1;
         int largoSecAux = largoSec;
         while(largoSec != -1){            
+            //Comparamos nuestro ArrayList con la Secuencia si tiene un elemento diferente retorna false
             if (resultado.get((largoSecAux)-largoSec) != Secuencia[largoSec]){
                 return false;
             }
@@ -521,7 +522,13 @@ public class Pantalla extends javax.swing.JFrame {
         return true;
     }   
     public ArrayList<Integer>[] fuerzaBrutaSug2(int[][] Matriz,int[] Secuencia, int aux,int[][] aux2,int aux3,ArrayList<Integer>...resultado) throws InterruptedException{        
-        // aux es el tamaño de nuestra matriz,aux2 es el tamaño de su ultima fila,aux 3 tamaño de secuencia
+        // aux es el tamaño de nuestra matriz,aux2 es la matriz donde "eliminaremos" las cartas,aux 3 tamaño de secuencia
+        // resultado ( Arraylist donde guardaremos la secuencia encontrada de la matriz)
+        // Matriz(matriz donde se encuentran nuestra secuencia de enteros), Secuencia(la secuencia correcta de enteros)
+        
+        //Esta función se encarga de encontrar la Secuencia dentro de Matriz
+        
+        // Como primera opción probamos toda la primer linea
         if(Matriz.length-1 == aux){
             int aux4 = aux;
             while (aux4 != -1){
@@ -529,21 +536,22 @@ public class Pantalla extends javax.swing.JFrame {
                 aux4--;             
             }
         }      
+        // Nos fijamos si el resultado es igual a la Secuencia
         if (AuxFuerzaBrutaSug22(resultado[0],Secuencia,Matriz)){
                 return resultado;  
         }        
-        aux3 = Random(resultado[0].size())-1; //elegimos una posición random de nuestra posible respuesta
-        int aux9 =Random(Matriz[4-aux3].length)-1;     
+        aux3 = Random(resultado[0].size())-1; //elegimos una fila random de nuestra posible respuesta
+        int aux9 =Random(Matriz[4-aux3].length)-1;// elegimos una columna random de la fila random      
         
-        while(aux2[4-aux3][aux9] == -2){
-            if(Matriz[4-aux3][aux9]== Secuencia[4-aux3]){                  
+        while(aux2[4-aux3][aux9] == -2){// Si esa posición tiene un -2(significa que ya se probo y se descarto) la cambiamos
+            if(Matriz[4-aux3][aux9]== Secuencia[4-aux3]){ // si la posición random es una respuesta de la secuencia salimos                 
                     break;
             }
             aux3 = Random(resultado[0].size())-1;
             aux9 =Random(Matriz[4-aux3].length)-1; 
         }          
         aux2[4-aux3][aux9] = -2; 
-        resultado[0].set(aux3,Matriz[4-aux3][aux9]); // elegimos aleatoriamente otro resultado no probado
+        resultado[0].set(aux3,Matriz[4-aux3][aux9]); // elegimos aleatoriamente otro elemento y lo metemos en resultado
         
         return fuerzaBrutaSug2(Matriz,Secuencia,0,aux2,aux3+1,resultado);   
     }
@@ -1146,7 +1154,7 @@ public class Pantalla extends javax.swing.JFrame {
         // Activamos la animación del algoritmo de Fuerza Bruta
         tiempoBack = 0;       
         try {
-            TodoCel();
+            TodoCel(); // ponemos todos los botones celestes
         } catch (InterruptedException ex) {
             Logger.getLogger(Pantalla.class.getName()).log(Level.SEVERE, null, ex);
         }
