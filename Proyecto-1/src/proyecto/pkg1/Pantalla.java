@@ -1206,10 +1206,7 @@ public class Pantalla extends javax.swing.JFrame {
                         try {                                  
                             jLabel1.setText("Backtracking");
                             tiempoBack = 10;                            
-                            //Seleccionar(matriz);//Selecciona de manera random la combinacion ganadora
-                            
-                            int[] Secuencia = {7,8,6,6,9};  
-                            asesino = Secuencia.clone();
+                            Seleccionar(matriz);//Selecciona de manera random la combinacion ganadora
                             
                             Scanner scanner = new Scanner(System.in);//Input para que ingrese el numero de parejas que quiere restringir
                             
